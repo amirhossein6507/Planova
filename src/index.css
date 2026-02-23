@@ -1,2 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@import url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css");
+
+body {
+  font-family: "Shabnam", tahoma, sans-serif;
+  text-align: right;
+}

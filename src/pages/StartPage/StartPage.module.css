@@ -1,0 +1,61 @@
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 100dvh;
+  padding-top: 80px;
+  /* background-image: url("https://wallpapercat.com/w/full/8/7/7/194290-3840x2160-desktop-4k-outer-space-wallpaper-photo.jpg"); */
+  background-image: url("https://images.stockcake.com/public/9/8/6/986d86eb-42e1-4b4e-a629-bafd27059793/elegant-saturn-portrait-stockcake.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #5558;
+  background-blend-mode: multiply;
+}
+
+main .logo {
+  display: flex;
+  color: #fff;
+  font-size: 40px;
+  text-shadow: 0 0 7px #fff;
+  /* background-color: #32323249; */
+  border-radius: 100px;
+  padding: 0 10px;
+  margin-bottom: 50px;
+  font-weight: 600;
+  line-height: 1;
+  span {
+    /* text-shadow: 0 0 10px #f0f; */
+    color: #5a5a5a;
+    text-align: center;
+    background-color: white;
+    line-height: 1;
+    vertical-align: middle;
+    height: 31px;
+    padding: 0 3px;
+  }
+}
+
+main .introduction {
+  background-color: #3335;
+  color: #fee;
+  backdrop-filter: blur(5px);
+  padding: 15px 10px;
+  width: 80%;
+  border-radius: 40px 13px 40px 13px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  line-height: 28px;
+  transition: all 0.5s;
+  &:hover {
+    border-radius: 13px 40px 13px 40px;
+  }
+}
+
+main .button {
+  background-color: #a0d;
+  border-radius: 100px;
+  padding: 0px 30px;
+}
