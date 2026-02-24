@@ -17,7 +17,7 @@ function StartPage() {
           <br />
           پیشرفتتو ببینی و انگیزه بگیری 🚀
         </p>
-        <div className="flex justify-center items-center bg-red pt-3">
+        <div className="flex justify-center items-center">
           <Link to="/home" className={styles.button}>
             بزن بریم
           </Link>

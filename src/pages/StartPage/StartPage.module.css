@@ -21,11 +21,14 @@ main .logo {
   font-size: 40px;
   text-shadow: 0 0 7px #fff;
   /* background-color: #32323249; */
-  border-radius: 100px;
   padding: 0 10px;
   margin-bottom: 50px;
   font-weight: 600;
   line-height: 1;
+  border-width: 0 0 3px 0;
+  border-style: solid;
+  border-color: white;
+  padding: 0;
   span {
     /* text-shadow: 0 0 10px #f0f; */
     color: #5a5a5a;
@@ -33,7 +36,6 @@ main .logo {
     background-color: white;
     line-height: 1;
     vertical-align: middle;
-    height: 31px;
     padding: 0 3px;
   }
 }
@@ -58,4 +60,5 @@ main .button {
   background-color: #a0d;
   border-radius: 100px;
   padding: 0px 30px;
+  margin-top: 10px;
 }

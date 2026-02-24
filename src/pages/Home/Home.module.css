@@ -1,0 +1,31 @@
+.hamberger {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  div {
+    width: 25px;
+    height: 2px;
+    background-color: black;
+  }
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 2px;
+    background-color: black;
+  }
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 2px;
+    background-color: black;
+  }
+}
+
+.activeTab {
+  background-color: #d0f;
+  border-radius: 100px;
+  color: #eff;
+  font-weight: 600;
+}
