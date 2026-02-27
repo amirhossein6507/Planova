@@ -23,7 +23,7 @@
   }
 }
 
-.activeTab {
+:global(.active) {
   background-color: #d0f;
   border-radius: 100px;
   color: #eff;

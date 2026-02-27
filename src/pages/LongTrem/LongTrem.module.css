@@ -1,0 +1,13 @@
+.progress {
+  width: 100%;
+  border-radius: 100px;
+  overflow: hidden;
+  height: 10px;
+}
+
+::-webkit-progress-bar {
+  background-color: rgb(255, 94, 66);
+}
+::-webkit-progress-value {
+  background-color: rgb(7, 203, 0);
+}
