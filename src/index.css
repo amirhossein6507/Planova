@@ -13,4 +13,16 @@
 body {
   font-family: "Shabnam", tahoma, sans-serif;
   text-align: right;
+  direction: rtl;
+}
+
+.text-expand {
+  overflow: auto;
+  text-wrap: wrap;
+}
+
+.text-collaps {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
 }

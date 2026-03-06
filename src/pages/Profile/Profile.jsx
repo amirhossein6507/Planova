@@ -1,17 +1,10 @@
-import { useNavigate } from "react-router";
+import ButtonBack from "../../components/ButtonBack";
 import styles from "./Profile.module.css";
 
 function Profile() {
-  const navigate = useNavigate();
-
   return (
     <div className={`${styles.main} ${styles.background}`}>
-      <button
-        onClick={() => navigate(-1)}
-        className="flex justify-center items-center text-2xl p-3 absolute top-5 left-3 bg-white rounded-full w-9 h-9"
-      >
-        &larr;
-      </button>
+      <ButtonBack />
       <div className="flex flex-col justify-center items-center w-9/12 p-3 pt-7 text-white  rounded-3xl bg-neutral-100/50 shadow-2xl/20">
         <div className="w-18 h-18 bg-white rounded-full overflow-hidden">
           <img
@@ -22,11 +15,11 @@ function Profile() {
         </div>
         <div className="flex flex-col gap-3 w-full p-5 divide-neutral-300/50  divide-y text-[13px]">
           <h1 className="text-center text-xl">full name</h1>
-          <div className="flex flex-row-reverse justify-between w-full pb-2">
+          <div className="flex  justify-between w-full pb-2">
             <p>تعداد اهداف روزانه</p>
             <span>100</span>
           </div>
-          <div className="flex flex-row-reverse justify-between w-full pb-2">
+          <div className="flex  justify-between w-full pb-2">
             <p>تعداد اهداف طولانی</p>
             <span>100</span>
           </div>

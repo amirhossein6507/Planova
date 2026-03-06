@@ -1,4 +1,4 @@
-.hamberger {
+.hambergerOpen {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -20,6 +20,29 @@
     width: 25px;
     height: 2px;
     background-color: black;
+  }
+}
+
+.hambergerClose {
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  div {
+    width: 25px;
+    height: 2px;
+    background-color: black;
+    transform: rotate(45deg);
+  }
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: black;
+    transform: rotate(-45deg);
   }
 }
 

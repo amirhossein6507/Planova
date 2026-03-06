@@ -1,0 +1,23 @@
+import { Link } from "react-router";
+import { useGoalsContext } from "../contexts/GoalsContext";
+
+function HambergerMenu() {
+  const { isOpenMenu } = useGoalsContext();
+
+  return (
+    <div
+      className={`z-20 py-2 px-3 border-b right-0 left-0  border-neutral-400 bg-white  ${isOpenMenu ? "relative top-0" : "-top-full absolute"}`}
+    >
+      <h1 className="text-center text-[#d0f] text-xl">MENU</h1>
+      <ul className="flex flex-col gap-2.5 text-neutral-500 font-light text-[12px] divide-y divide-neutral-300/40">
+        <li className="py-1">
+          <Link to="/profile">پروفایل</Link>
+        </li>
+        <li className="py-1">از کجا شروع کردی</li>
+        <li className="py-1">آرشیو</li>
+      </ul>
+    </div>
+  );
+}
+
+export default HambergerMenu;
