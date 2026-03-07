@@ -11,10 +11,25 @@ function HambergerMenu() {
       <h1 className="text-center text-[#d0f] text-xl">MENU</h1>
       <ul className="flex flex-col gap-2.5 text-neutral-500 font-light text-[12px] divide-y divide-neutral-300/40">
         <li className="py-1">
-          <Link to="/profile">پروفایل</Link>
+          <Link to="/profile" className="block w-full hover:text-[#e0f]">
+            پروفایل
+          </Link>
         </li>
-        <li className="py-1">از کجا شروع کردی</li>
-        <li className="py-1">آرشیو</li>
+        <li className="py-1">
+          <Link to="/chalenge" className="block w-full hover:text-[#e0f]">
+            چالش
+          </Link>
+        </li>
+        <li className="py-1">
+          <Link to="/start-where" className="block w-full hover:text-[#e0f]">
+            از کجا شروع کردی
+          </Link>
+        </li>
+        <li className="py-1">
+          <Link to="/archive" className="block w-full hover:text-[#e0f]">
+            آرشیو
+          </Link>
+        </li>
       </ul>
     </div>
   );

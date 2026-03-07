@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 function LongTremItem({ goals }) {
   return (
-    <li
+    <Link
       to={`${goals.id}`}
       className="flex justify-between  relative border border-[#7773] rounded-xl p-2 text-neutral-500 overflow-hidden"
     >
@@ -21,7 +21,7 @@ function LongTremItem({ goals }) {
           <input type="checkbox" className="z-10" />
         </div>
       </div>
-    </li>
+    </Link>
   );
 }
 

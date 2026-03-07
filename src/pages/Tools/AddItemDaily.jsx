@@ -44,6 +44,7 @@ function AddItemDaily() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
           <div className="w-full flex">
@@ -66,7 +67,7 @@ function AddItemDaily() {
               <option value="none" selected>
                 بدون دسته بندی
               </option>
-              <option value="person">شخصی🙎</option>
+              <option value="personal">شخصی🙎</option>
               <option value="work">کاری🏢</option>
               <option value="study">درسی📚</option>
             </select>

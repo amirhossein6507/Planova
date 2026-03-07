@@ -18,35 +18,41 @@ const GoalsContext = createContext();
 //   },
 // ];
 
-const goalsDataLong = [
-  {
-    id: 1,
-    title: "عنوان 1",
-    description: "توضیحات",
-    category: "work",
-    timer: 1000,
-    createDate: "1404/04/04",
-    whyTarget: "چرایی هدف",
-    steps: {
-      step1: "قدم اول",
-      step2: "قدم دوم",
-      step3: "قدم سوم",
-    },
-    checked: false,
-  },
-];
+// const goalsDataLong = [
+//   {
+//     id: 1,
+//     title: "عنوان 1",
+//     description: "توضیحات",
+//     category: "work",
+//     timer: 1000,
+//     createDate: "1404/04/04",
+//     whyTarget: "چرایی هدف",
+//     steps: ["قدم اول", "قدم دوم", "قدم سوم"],
+//     checked: false,
+//   },
+// ];
 
 const GoalsProvider = ({ children }) => {
   const [dailyItem, setDailyItem] = useState(() => {
     return JSON.parse(localStorage.getItem("daily-goals")) || [];
   });
-  const [longTremItem, setLongTremItem] = useState(goalsDataLong);
+  const [longTremItem, setLongTremItem] = useState(() => {
+    return JSON.parse(localStorage.getItem("longTrem-goals")) || [];
+  });
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const complatedNum = dailyItem.filter((item) => item.status == true).length;
 
   const addDailyGoal = (goal) => {
     setDailyItem((goals) => [...goals, goal]);
+  };
+
+  const editDailyGoal = (goal) => {
+    setDailyItem((goals) => {
+      goals.filter((item) => item.id !== goal.id);
+      return [...goals, goal];
+    });
+    console.log(typeof goal.id, typeof dailyItem[1].id);
   };
 
   const deleteDailyGoal = (id) => {
@@ -70,6 +76,13 @@ const GoalsProvider = ({ children }) => {
     setDailyItem([]);
   };
 
+  const getDataDailyGoal = useCallback(
+    (id) => {
+      return dailyItem.find((goals) => goals.id == id);
+    },
+    [dailyItem],
+  );
+
   const getDataLongGoal = useCallback(
     (id) => {
       return longTremItem.find((goals) => goals.id == id);
@@ -77,24 +90,35 @@ const GoalsProvider = ({ children }) => {
     [longTremItem],
   );
 
+  const addLongTremItem = (goal) => {
+    setLongTremItem((cur) => [...cur, goal]);
+  };
+
   useEffect(() => {
     localStorage.setItem("daily-goals", JSON.stringify(dailyItem));
   }, [dailyItem]);
 
+  useEffect(() => {
+    localStorage.setItem("longTrem-goals", JSON.stringify(longTremItem));
+  }, [longTremItem]);
+
   return (
     <GoalsContext.Provider
       value={{
+        isOpenMenu,
+        setIsOpenMenu,
         dailyItem,
         addDailyGoal,
+        editDailyGoal,
         changeStatusDaily,
         deleteDailyGoal,
         complatedNum,
         deleteAllDailyItem,
-        setIsOpenMenu,
-        isOpenMenu,
+        getDataDailyGoal,
         longTremItem,
         setLongTremItem,
         getDataLongGoal,
+        addLongTremItem,
       }}
     >
       {children}

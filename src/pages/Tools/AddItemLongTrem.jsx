@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ButtonBack from "../../components/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useNavigate } from "react-router";
 
 function AddItemLongTrem() {
-  const { addDailyGoal } = useGoalsContext();
+  const { addLongTremItem } = useGoalsContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [steps, setSteps] = useState(["قدم اول", "قدم دوم"]);
+  const [whyTarget, setWhyTarget] = useState("");
+  const [category, setCategory] = useState("none");
+  const itemStep = useRef();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -22,12 +25,16 @@ function AddItemLongTrem() {
       title,
       description,
       category,
-      status: false,
+      timer: 1000,
+      createDate: "1404/04/04",
+      whyTarget,
+      steps,
+      checked: false,
     };
 
-    addDailyGoal(newItem);
+    addLongTremItem(newItem);
 
-    navigate("/home");
+    navigate("/home/long-trem");
   };
 
   return (
@@ -62,15 +69,34 @@ function AddItemLongTrem() {
               قدم ها
             </label>
             <input
-              className="input w-8/12 input-sm text-neutral-500 rounded-full text-right"
+              className="input w-6/12 input-sm text-neutral-500 rounded-full text-right"
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              ref={itemStep}
             />
+            <button
+              type="button"
+              onClick={() => {
+                setSteps((cur) => [...cur, itemStep.current.value]);
+              }}
+              className="w-2/12 btn btn-sm btn-info rounded-full text-white"
+            >
+              +
+            </button>
             <ul className="w-full list list-disc px-7 py-2 my-2 mx-3 border rounded-2xl">
-              <li>قدم اول</li>
-              <li>قدم اول</li>
-              <li>قدم اول</li>
+              {steps.map((item) => {
+                return (
+                  <li>
+                    {item}{" "}
+                    <button
+                      onClick={() =>
+                        setSteps((cur) => cur.filter((elem) => elem !== item))
+                      }
+                    >
+                      ❌
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="w-full flex items-center">
@@ -80,8 +106,8 @@ function AddItemLongTrem() {
             <input
               className="input w-8/12 input-sm text-neutral-500 rounded-full text-right"
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={whyTarget}
+              onChange={(e) => setWhyTarget(e.target.value)}
               required
             />
           </div>
@@ -94,13 +120,16 @@ function AddItemLongTrem() {
               <option value="none" selected>
                 بدون دسته بندی
               </option>
-              <option value="person">شخصی🙎</option>
+              <option value="personal">شخصی🙎</option>
               <option value="work">کاری🏢</option>
               <option value="study">درسی📚</option>
             </select>
           </div>
 
-          <button className="btn btn-sm btn-info rounded-full bg-sky-400 text-white">
+          <button
+            type="submit"
+            className="btn btn-sm btn-info rounded-full bg-sky-400 text-white"
+          >
             اضافه کردن
           </button>
         </form>
