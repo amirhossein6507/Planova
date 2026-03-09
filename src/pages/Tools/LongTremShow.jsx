@@ -1,18 +1,20 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import ButtonBack from "../../components/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useEffect, useState } from "react";
 
 function LongTremShow() {
   const { id } = useParams();
-  const { getDataLongGoal } = useGoalsContext();
+  const { getDataLongGoal, deleteLongTremGoal } = useGoalsContext();
   const [goal, setGoal] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     setGoal(getDataLongGoal(id));
   }, [getDataLongGoal, id]);
 
-  console.log(goal);
+  const showStep = goal.steps?.length;
+  console.log(showStep);
 
   return (
     <div className="relative p-4">
@@ -32,27 +34,45 @@ function LongTremShow() {
         </h4>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <div className="border-r border-[#e0f] pr-2">
-          <h4 className="text-neutral-500">توضیحات</h4>
-          <p className="text-neutral-400 text-[13px] text-justify leading-6">
-            {goal?.description}
-          </p>
-        </div>
-        <div className="border-r border-[#e0f] pr-2">
-          <h4 className="text-neutral-500">قدم ها</h4>
-          <ul className="text-neutral-400 text-[13px] text-justify leading-6 list-disc pr-4">
-            {goal?.steps?.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="border-r border-[#e0f] pr-2">
-          <h4 className="text-neutral-500">چرا این هدف برات مهمه؟</h4>
-          <p className="text-neutral-400 text-[13px] text-justify leading-6">
-            {goal?.whyTarget}
-          </p>
-        </div>
+      <div className="flex flex-col gap-4 pt-3">
+        {goal.description && (
+          <div className="border-r border-[#e0f] pr-2">
+            <h4 className="text-neutral-500">توضیحات</h4>
+            <p className="text-neutral-400 text-[13px] text-justify leading-6">
+              {goal?.description}
+            </p>
+          </div>
+        )}
+        {showStep !== 0 && (
+          <div className="border-r border-[#e0f] pr-2">
+            <h4 className="text-neutral-500">قدم ها</h4>
+            <ul className="text-neutral-400 text-[13px] text-justify leading-6 list-disc pr-4">
+              {goal?.steps?.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {goal.whyTarget && (
+          <div className="border-r border-[#e0f] pr-2">
+            <h4 className="text-neutral-500">چرا این هدف برات مهمه؟</h4>
+            <p className="text-neutral-400 text-[13px] text-justify leading-6">
+              {goal?.whyTarget}
+            </p>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-row-reverse gap-2 pt-5">
+        <button
+          className="btn btn-sm btn-error"
+          onClick={() => {
+            deleteLongTremGoal(goal.id);
+            navigate("/home/long-trem");
+          }}
+        >
+          🗑️
+        </button>
+        <button className="btn btn-sm btn-warning">✏️</button>
       </div>
     </div>
   );

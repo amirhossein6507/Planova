@@ -3,13 +3,25 @@ import ButtonBack from "../../components/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useNavigate } from "react-router";
 
+const formatDate = (date) => {
+  const dateForemted = Intl.DateTimeFormat("en", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(date);
+
+  return dateForemted.split("/").reverse().join("-");
+};
+
 function AddItemLongTrem() {
   const { addLongTremItem } = useGoalsContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [steps, setSteps] = useState(["قدم اول", "قدم دوم"]);
+  const [steps, setSteps] = useState([]);
   const [whyTarget, setWhyTarget] = useState("");
   const [category, setCategory] = useState("none");
+  const [createDate, setCreateDate] = useState(formatDate(new Date()));
+  const [selectDateOption, setSelectDateOption] = useState("no-date");
   const itemStep = useRef();
   const navigate = useNavigate();
 
@@ -26,7 +38,7 @@ function AddItemLongTrem() {
       description,
       category,
       timer: 1000,
-      createDate: "1404/04/04",
+      createDate,
       whyTarget,
       steps,
       checked: false,
@@ -82,22 +94,24 @@ function AddItemLongTrem() {
             >
               +
             </button>
-            <ul className="w-full list list-disc px-7 py-2 my-2 mx-3 border rounded-2xl">
-              {steps.map((item) => {
-                return (
-                  <li>
-                    {item}{" "}
-                    <button
-                      onClick={() =>
-                        setSteps((cur) => cur.filter((elem) => elem !== item))
-                      }
-                    >
-                      ❌
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            {steps.length !== 0 && (
+              <ul className="w-full list list-disc px-7 py-2 my-2 mx-3 border rounded-2xl">
+                {steps.map((item, index) => {
+                  return (
+                    <li key={index}>
+                      {item}{" "}
+                      <button
+                        onClick={() =>
+                          setSteps((cur) => cur.filter((elem) => elem !== item))
+                        }
+                      >
+                        ❌
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
           <div className="w-full flex items-center">
             <label className="w-4/12" htmlFor="">
@@ -110,6 +124,56 @@ function AddItemLongTrem() {
               onChange={(e) => setWhyTarget(e.target.value)}
               required
             />
+          </div>
+          <div className="border border-white rounded-2xl p-2">
+            <div className="flex gap-3 mb-3 bg-white rounded-full">
+              <div className="bg-white rounded-full px-3 py-1 text-black flex justify-center items-center gap-1 w-4/12 text-[12px]">
+                <input
+                  type="radio"
+                  id="no-date"
+                  name="select-date-option"
+                  className="radio radio-sm radio-success"
+                  checked={selectDateOption == "no-date" ? true : false}
+                  value="no-date"
+                  onChange={(e) => setSelectDateOption(e.target.value)}
+                />
+                <label htmlFor="no-date">بدون تاریخ</label>
+              </div>
+              <div className="bg-white rounded-full px-3 py-1 text-black flex justify-center items-center gap-1 w-4/12 text-[12px]">
+                <input
+                  type="radio"
+                  id="yes-date"
+                  name="select-date-option"
+                  className="radio radio-sm radio-success"
+                  checked={selectDateOption == "yes-date" ? true : false}
+                  value="yes-date"
+                  onChange={(e) => setSelectDateOption(e.target.value)}
+                />
+                <label htmlFor="yes-date">با تاریخ</label>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <div>
+                <label htmlFor="">تاریخ شروع</label>
+                <input
+                  type="date"
+                  className="input input-sm rounded-full grow text-neutral-500 mt-1"
+                  value={createDate}
+                  onChange={(e) => setCreateDate(e.target.value)}
+                />
+              </div>
+              <div
+                className={`${selectDateOption == "no-date" ? "opacity-70" : ""}`}
+              >
+                <label htmlFor="">تاریخ پایان</label>
+                <input
+                  type="date"
+                  className="input input-sm rounded-full grow text-neutral-500 mt-1"
+                  onChange={(e) => console.log(e.target.value)}
+                  disabled={selectDateOption == "no-date" && true}
+                />
+              </div>
+            </div>
           </div>
           <div className="w-full flex">
             <select

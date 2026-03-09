@@ -94,6 +94,10 @@ const GoalsProvider = ({ children }) => {
     setLongTremItem((cur) => [...cur, goal]);
   };
 
+  const deleteLongTremGoal = (id) => {
+    setLongTremItem((goals) => goals.filter((goal) => goal.id !== id));
+  };
+
   useEffect(() => {
     localStorage.setItem("daily-goals", JSON.stringify(dailyItem));
   }, [dailyItem]);
@@ -119,6 +123,7 @@ const GoalsProvider = ({ children }) => {
         setLongTremItem,
         getDataLongGoal,
         addLongTremItem,
+        deleteLongTremGoal,
       }}
     >
       {children}

@@ -41,6 +41,12 @@ body {
   margin: 0 auto;
 }
 
+:checked {
+  background-color: #d0f;
+  color: white;
+  border-radius: 200px;
+}
+
 .background-comingsoon {
   display: flex;
   justify-content: center;
