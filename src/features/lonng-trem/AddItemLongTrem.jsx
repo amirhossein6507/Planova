@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
-import ButtonBack from "../../components/ButtonBack";
+import { useState } from "react";
+import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useNavigate } from "react-router";
+import Input from "../../ui/Input";
 
 const formatDate = (date) => {
   const dateForemted = Intl.DateTimeFormat("en", {
@@ -21,9 +22,18 @@ function AddItemLongTrem() {
   const [whyTarget, setWhyTarget] = useState("");
   const [category, setCategory] = useState("none");
   const [createDate, setCreateDate] = useState(formatDate(new Date()));
+  const [endDate, setEndDate] = useState("");
   const [selectDateOption, setSelectDateOption] = useState("no-date");
-  const itemStep = useRef();
+  const [itemStep, setItemStep] = useState("");
   const navigate = useNavigate();
+
+  const getTimer = () => {
+    const starting = Number(createDate.split("-").join(""));
+    const ending = Number(endDate.split("-").join(""));
+    const ekhtelaf = ending - starting;
+    const result = ekhtelaf * 24 * 60;
+    return selectDateOption === "yes-date" ? result : 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,8 +47,9 @@ function AddItemLongTrem() {
       title,
       description,
       category,
-      timer: 1000,
+      timer: getTimer(),
       createDate,
+      endDate: selectDateOption == "yes-date" ? endDate : "",
       whyTarget,
       steps,
       checked: false,
@@ -47,6 +58,19 @@ function AddItemLongTrem() {
     addLongTremItem(newItem);
 
     navigate("/home/long-trem");
+  };
+
+  const handleEndDate = (e) => {
+    const checkCreateDate = Number(createDate.split("-").join(""));
+    const checkEndDate = Number(e.target.value.split("-").join(""));
+    checkCreateDate >= checkEndDate
+      ? alert("لطفا تاریخ پایان رو به درستی تنظیم کنید")
+      : setEndDate(e.target.value);
+  };
+
+  const handleAddStep = () => {
+    setSteps((cur) => [...cur, itemStep]);
+    setItemStep("");
   };
 
   return (
@@ -83,13 +107,12 @@ function AddItemLongTrem() {
             <input
               className="input w-6/12 input-sm text-neutral-500 rounded-full text-right"
               type="text"
-              ref={itemStep}
+              value={itemStep}
+              onChange={(e) => setItemStep(e.target.value)}
             />
             <button
               type="button"
-              onClick={() => {
-                setSteps((cur) => [...cur, itemStep.current.value]);
-              }}
+              onClick={handleAddStep}
               className="w-2/12 btn btn-sm btn-info rounded-full text-white"
             >
               +
@@ -169,8 +192,11 @@ function AddItemLongTrem() {
                 <input
                   type="date"
                   className="input input-sm rounded-full grow text-neutral-500 mt-1"
-                  onChange={(e) => console.log(e.target.value)}
                   disabled={selectDateOption == "no-date" && true}
+                  value={endDate}
+                  min={createDate}
+                  required
+                  onChange={handleEndDate}
                 />
               </div>
             </div>

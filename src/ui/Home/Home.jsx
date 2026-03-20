@@ -1,15 +1,15 @@
-import HambergerMenu from "../../components/HambergerMenu";
 import { useGoalsContext } from "../../contexts/GoalsContext";
-import styles from "./Home.module.css";
 import { Link, NavLink, Outlet } from "react-router";
+import styles from "./Home.module.css";
+import HambergerMenu from "../../ui/HambergerMenu";
 
 function Home() {
   const { setIsOpenMenu, isOpenMenu } = useGoalsContext();
 
   return (
-    <div>
+    <div className="w-full relative">
       <HambergerMenu />
-      <header className="flex flex-row-reverse justify-between py-5 px-2 items-center ">
+      <header className="flex flex-row-reverse justify-between py-5 px-2 items-center z-20 relative">
         <h1 className="text-3xl pl-3">
           <span className="text-[#d0f]">P</span>lanova
         </h1>

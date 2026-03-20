@@ -1,13 +1,16 @@
 import { useNavigate, useParams } from "react-router";
-import ButtonBack from "../../components/ButtonBack";
+import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useEffect, useState } from "react";
+import Tools from "./Tools";
 
 function LongTremShow() {
   const { id } = useParams();
   const { getDataLongGoal, deleteLongTremGoal } = useGoalsContext();
   const [goal, setGoal] = useState({});
-  const navigate = useNavigate();
+
+  const days = goal.timer / 60;
+  const mins = goal.timer / 60 / 24;
 
   useEffect(() => {
     setGoal(getDataLongGoal(id));
@@ -20,8 +23,18 @@ function LongTremShow() {
     <div className="relative p-4">
       <ButtonBack link={"/home/long-trem"} />
       <div className="flex flex-col justify-center items-center gap-1">
-        <span className="text-3xl font-light text-[#e0f]">00:00:00</span>
-        <span className="text-xl">{goal?.createDate}</span>
+        <span className="text-3xl font-light text-[#e0f]">
+          {mins}:{days}
+        </span>
+        <div className="flex gap-2">
+          <span className="text-xl">{goal?.createDate}</span>
+          {goal.endDate && (
+            <>
+              <span>&larr;</span>
+              <span className="text-xl">{goal.endDate}</span>
+            </>
+          )}
+        </div>
         <h2 className="px-5 py text-xl border-2  border-purple-400 rounded-full">
           {goal?.title}
         </h2>
@@ -62,18 +75,7 @@ function LongTremShow() {
           </div>
         )}
       </div>
-      <div className="flex flex-row-reverse gap-2 pt-5">
-        <button
-          className="btn btn-sm btn-error"
-          onClick={() => {
-            deleteLongTremGoal(goal.id);
-            navigate("/home/long-trem");
-          }}
-        >
-          🗑️
-        </button>
-        <button className="btn btn-sm btn-warning">✏️</button>
-      </div>
+      <Tools handleDelete={deleteLongTremGoal} id={goal.id} />
     </div>
   );
 }

@@ -1,0 +1,23 @@
+@keyframes menuOpen {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes menuClose {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -100%;
+  }
+}
+
+.animationOpenMenu {
+  animation: menuOpen 700ms linear;
+}
+.animationCloseMenu {
+  animation: menuClose 700ms linear;
+}

@@ -1,4 +1,4 @@
-import ListContainer from "../../components/ListContainer";
+import ListContainer from "../../ui/ListContainer";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import styles from "./LongTrem.module.css";
 import LongTremItem from "./LongTremItem";

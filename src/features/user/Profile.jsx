@@ -1,4 +1,4 @@
-import ButtonBack from "../../components/ButtonBack";
+import ButtonBack from "../../ui/ButtonBack";
 import styles from "./Profile.module.css";
 
 function Profile() {
@@ -8,18 +8,18 @@ function Profile() {
       <div className="flex flex-col justify-center items-center w-9/12 p-3 pt-7 text-white  rounded-3xl bg-neutral-100/50 shadow-2xl/20">
         <div className="w-18 h-18 bg-white rounded-full overflow-hidden">
           <img
-            src="https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+            // src="https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
             className="w-full h-full object-cover"
-            alt=""
+            alt="profile"
           />
         </div>
         <div className="flex flex-col gap-3 w-full p-5 divide-neutral-300/50  divide-y text-[13px]">
           <h1 className="text-center text-xl">full name</h1>
-          <div className="flex  justify-between w-full pb-2">
+          <div className="flex justify-between w-full pb-2">
             <p>تعداد اهداف روزانه</p>
             <span>100</span>
           </div>
-          <div className="flex  justify-between w-full pb-2">
+          <div className="flex justify-between w-full pb-2">
             <p>تعداد اهداف طولانی</p>
             <span>100</span>
           </div>

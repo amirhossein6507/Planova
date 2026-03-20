@@ -1,25 +1,19 @@
-import { useEffect, useState } from "react";
-import ButtonBack from "../../components/ButtonBack";
+import { useState } from "react";
+import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
+import Btn from "../../ui/Btn";
+import Input from "../../ui/Input";
+import Form from "../../ui/Form";
+import { Selecte, Option } from "../../ui/Selecte";
 
-function EditDaily() {
-  const { getDataDailyGoal, editDailyGoal } = useGoalsContext();
-  const { id } = useParams();
+function AddItemDaily() {
+  const changeForm = true;
+  const { addDailyGoal } = useGoalsContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getData = async () => {
-      const { title, description, category } = await getDataDailyGoal(id);
-      setTitle(title);
-      setDescription(description);
-      setCategory(category);
-    };
-    getData();
-  }, [getDataDailyGoal, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,17 +23,45 @@ function EditDaily() {
     }
 
     const newItem = {
-      id,
+      id: Math.random(),
       title,
       description,
       category,
       status: false,
     };
 
-    editDailyGoal(newItem);
+    console.log(newItem);
+
+    addDailyGoal(newItem);
 
     navigate("/home");
   };
+
+  if (changeForm)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ButtonBack />
+        <Form className="mx-5" onSubmit={handleSubmit}>
+          <Input lable="عنوان" onGetInput={setTitle} value={title} />
+
+          <Input
+            type="textarea"
+            value={description}
+            onGetInput={setDescription}
+            lable="توضیحات"
+            htmlFor="test"
+            checked={true}
+          />
+          <Selecte title="بدون دسته بندی" onGetValue={setCategory}>
+            <Option value="personal">شخصی🙎</Option>
+            <Option value="work">کاری🏢</Option>
+            <Option value="study">درسی📚</Option>
+          </Selecte>
+
+          <Btn>اضفافه کردن</Btn>
+        </Form>
+      </div>
+    );
 
   return (
     <div className="h-screen flex justify-center items-center">
@@ -85,7 +107,7 @@ function EditDaily() {
           </div>
 
           <button className="btn btn-sm btn-info rounded-full bg-sky-400 text-white">
-            ویرایش کردن
+            اضافه کردن
           </button>
         </form>
       </div>
@@ -93,4 +115,4 @@ function EditDaily() {
   );
 }
 
-export default EditDaily;
+export default AddItemDaily;

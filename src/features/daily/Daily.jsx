@@ -1,5 +1,5 @@
-import ButtonAdd from "../ButtonAdd";
-import ListContainer from "../ListContainer";
+import ButtonAdd from "../../ui/ButtonAdd";
+import ListContainer from "../../ui/ListContainer";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import DailyItem from "./DailyItem";
 import { useState } from "react";

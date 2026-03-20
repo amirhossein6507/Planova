@@ -1,15 +1,15 @@
 import { HashRouter, Navigate, Route, Routes } from "react-router";
 import { GoalsProvider } from "./contexts/GoalsContext";
-import StartPage from "./pages/StartPage/StartPage";
-import Profile from "./pages/Profile/Profile";
-import Home from "./pages/Home/Home";
-import Daily from "./components/Daily/Daily";
-import AddItemDaily from "./pages/Tools/AddItemDaily";
-import LongTrem from "./components/LongTrem/LongTrem";
-import LongTremShow from "./pages/Tools/LongTremShow";
-import AddItemLongTrem from "./pages/Tools/AddItemLongTrem";
-import EditDaily from "./pages/Tools/EditDaily";
-import ComingSoon from "./pages/ComingSoon";
+import StartPage from "./ui/StartPage/StartPage";
+import Profile from "./features/user/Profile";
+import Home from "./ui/Home/Home";
+import Daily from "./features/daily/Daily";
+import AddItemDaily from "./features/daily/AddItemDaily";
+import EditDaily from "./features/daily/EditDaily";
+import LongTrem from "./features/lonng-trem/LongTrem";
+import LongTremShow from "./features/lonng-trem/LongTremShow";
+import AddItemLongTrem from "./features/lonng-trem/AddItemLongTrem";
+import ComingSoon from "./ui/ComingSoon";
 
 function App() {
   return (

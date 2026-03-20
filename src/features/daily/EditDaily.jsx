@@ -1,14 +1,25 @@
-import { useState } from "react";
-import ButtonBack from "../../components/ButtonBack";
+import { useEffect, useState } from "react";
+import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-function AddItemDaily() {
-  const { addDailyGoal } = useGoalsContext();
+function EditDaily() {
+  const { getDataDailyGoal, editDailyGoal } = useGoalsContext();
+  const { id } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getData = async () => {
+      const { title, description, category } = await getDataDailyGoal(id);
+      setTitle(title);
+      setDescription(description);
+      setCategory(category);
+    };
+    getData();
+  }, [getDataDailyGoal, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,14 +29,14 @@ function AddItemDaily() {
     }
 
     const newItem = {
-      id: Math.random(),
+      id,
       title,
       description,
       category,
       status: false,
     };
 
-    addDailyGoal(newItem);
+    editDailyGoal(newItem);
 
     navigate("/home");
   };
@@ -74,7 +85,7 @@ function AddItemDaily() {
           </div>
 
           <button className="btn btn-sm btn-info rounded-full bg-sky-400 text-white">
-            اضافه کردن
+            ویرایش کردن
           </button>
         </form>
       </div>
@@ -82,4 +93,4 @@ function AddItemDaily() {
   );
 }
 
-export default AddItemDaily;
+export default EditDaily;

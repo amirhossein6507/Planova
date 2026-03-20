@@ -26,6 +26,7 @@ const GoalsContext = createContext();
 //     category: "work",
 //     timer: 1000,
 //     createDate: "1404/04/04",
+//     endDate: "1404/04/05",
 //     whyTarget: "چرایی هدف",
 //     steps: ["قدم اول", "قدم دوم", "قدم سوم"],
 //     checked: false,
