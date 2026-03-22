@@ -18,8 +18,8 @@ const formatClock = (date) => {
 };
 
 function ListContainer({ children, linkBtnAddTask }) {
-  const { deleteAllDailyItem } = useGoalsContext();
-  const [date, setDate] = useState(formatDate(new Date()));
+  // const { deleteAllDailyItem } = useGoalsContext();
+  const [date] = useState(formatDate(new Date()));
   const [clock, setClock] = useState(formatClock(new Date()));
 
   useEffect(() => {
@@ -36,13 +36,15 @@ function ListContainer({ children, linkBtnAddTask }) {
   // }
 
   return (
-    <div className="relative">
-      <div className="flex justify-around bg-[#d0f] text-white font-bold text-center p-1.5">
-        <span>{date}📅</span>
-        <span>{clock}🕐</span>
+    <div className="relative translate-0 grid grid-rows-[auto,1fr]">
+      <div className="p-3 fixed right-5 left-5">
+        <div className="flex justify-around rounded-full text-neutral-800 backdrop-grayscale-50 backdrop-blur-xs backdrop-brightness-98 p-1 border border-violet-400/30 bg-violet-400/30 z-100">
+          <span>{date}📅</span>
+          <span>{clock}🕐</span>
+        </div>
       </div>
 
-      <div>{children}</div>
+      <div className="h-[78dvh] overflow-y-auto pt-13">{children}</div>
 
       <ButtonAdd link={linkBtnAddTask} />
     </div>

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function Input({
   type = "text",
   lable = "",
@@ -14,6 +12,12 @@ function Input({
   let styleContainer;
   let styleInput;
   let styleLable;
+  // eslint-disable-next-line react-hooks/purity
+  const randomNum = Math.random();
+
+  if (!htmlFor) {
+    htmlFor = String(randomNum);
+  }
 
   switch (type) {
     case "text":

@@ -33,6 +33,24 @@ const GoalsContext = createContext();
 //   },
 // ];
 
+const chalengeData = {
+  // title: "چالش اول",
+  // startDate: "1404/04/04",
+  // dayOn: 1,
+  // days: [
+  //   {
+  //     id: 1,
+  //     numDay: 1,
+  //     chalengeItem: ["زبان", "ری اکت", "فرندز"],
+  //   },
+  //   {
+  //     id: 2,
+  //     numDay: 2,
+  //     chalengeItem: ["زبان", "ری اکت", "فرندز"],
+  //   },
+  // ],
+};
+
 const GoalsProvider = ({ children }) => {
   const [dailyItem, setDailyItem] = useState(() => {
     return JSON.parse(localStorage.getItem("daily-goals")) || [];
@@ -40,6 +58,7 @@ const GoalsProvider = ({ children }) => {
   const [longTremItem, setLongTremItem] = useState(() => {
     return JSON.parse(localStorage.getItem("longTrem-goals")) || [];
   });
+  const [chalengeItem, setChalengeItem] = useState(chalengeData);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const complatedNum = dailyItem.filter((item) => item.status == true).length;
@@ -125,6 +144,8 @@ const GoalsProvider = ({ children }) => {
         getDataLongGoal,
         addLongTremItem,
         deleteLongTremGoal,
+        chalengeItem,
+        setChalengeItem,
       }}
     >
       {children}

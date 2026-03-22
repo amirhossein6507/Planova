@@ -22,9 +22,9 @@ function Daily() {
           </div>
         ) : (
           <>
-            <div className="flex justify-between items-center px-3 py-2">
+            <div className="flex justify-between items-center px-4 py-2 backdrop-grayscale-50 backdrop-blur-xs backdrop-brightness-98  border border-violet-300/30 mx-3 rounded-2xl fixed right-5 left-5">
               <select
-                className="select select-sm select-primary w-5/12 rounded-full"
+                className="select select-sm bg-violet-200/90 select-primary pr-7 w-5/12 rounded-full border-none outline-none backdrop-blur-2xl text-violet-900"
                 onChange={(e) => setChooseCategory(e.target.value)}
                 value={chooseCategory}
               >
@@ -41,7 +41,7 @@ function Daily() {
               `}
               </p>
             </div>
-            <ul className="px-3 pt-2 pb-15 flex flex-col gap-2.5 ">
+            <ul className="px-3 pt-14 pb-15 flex flex-col gap-2.5 ">
               {selectedCategory.map((item, index) => (
                 <DailyItem goal={item} key={index} />
               ))}

@@ -17,6 +17,7 @@ main {
 
 main .logo {
   display: flex;
+  flex-direction: row-reverse;
   color: #fff;
   font-size: 40px;
   text-shadow: 0 0 7px #fff;

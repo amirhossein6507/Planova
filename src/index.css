@@ -1,8 +1,33 @@
 @import "tailwindcss";
+@import url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css");
 @plugin "daisyui" {
   themes: light --default;
+  base: false;
+  styled: false;
 }
-@import url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css");
+@font-face {
+  font-family: logo;
+  src: url("./assets/fonts/SEGOEPRB.TTF");
+}
+.text-logo {
+  font-family: logo;
+}
+
+/* fix scroll bar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0000;
+}
+::-webkit-scrollbar-thumb {
+  background: #9d00ff;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #7600c0;
+}
 
 @keyframes background-comingsoon {
   0% {
@@ -68,4 +93,28 @@ body {
     font-size: 20px;
     margin-bottom: 20px;
   }
+}
+
+@keyframes menuOpen {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes menuClose {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -100%;
+  }
+}
+
+.animationOpenMenu {
+  animation: menuOpen 700ms linear;
+}
+.animationCloseMenu {
+  animation: menuClose 700ms linear;
 }
