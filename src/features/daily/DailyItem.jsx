@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 function DailyItem({ goal }) {
   const { id, title, description, category, status } = goal;
-  const { deleteDailyGoal, changeStatusDaily } = useGoalsContext();
+  const { dispatch, changeStatusDaily } = useGoalsContext();
   const [expend, setExpend] = useState(0);
 
   const handleChangeStatus = (id) => {
@@ -46,9 +46,14 @@ function DailyItem({ goal }) {
             name=""
             id=""
             checked={status}
-            onClick={() => handleChangeStatus(id)}
+            onClick={() =>
+              dispatch({ type: "daily/changeStatus", payload: id })
+            }
           />
-          <button onClick={() => deleteDailyGoal(id)} className="text-[15px]">
+          <button
+            onClick={() => dispatch({ type: "daily/deleteItem", payload: id })}
+            className="text-[15px]"
+          >
             🗑️
           </button>
         </div>

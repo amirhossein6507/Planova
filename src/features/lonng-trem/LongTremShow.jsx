@@ -6,7 +6,7 @@ import Tools from "./Tools";
 
 function LongTremShow() {
   const { id } = useParams();
-  const { getDataLongGoal, deleteLongTremGoal } = useGoalsContext();
+  const { getDataLongGoal, dispatch } = useGoalsContext();
   const [goal, setGoal] = useState({});
 
   const days = goal.timer / 60;
@@ -75,7 +75,7 @@ function LongTremShow() {
           </div>
         )}
       </div>
-      <Tools handleDelete={deleteLongTremGoal} id={goal.id} />
+      <Tools handleDelete={dispatch} id={goal.id} />
     </div>
   );
 }

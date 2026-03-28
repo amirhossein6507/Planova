@@ -45,8 +45,6 @@ function Input({
     if (type === "text" || type === "textarea") onGetInput(e.target.value);
     // bug : update state
     if (type === "checkbox") onGetInput(e.target.checked);
-    // if (onGetInput) onGetInput(inputValue);
-    if (onChange) onChange();
   };
 
   return (

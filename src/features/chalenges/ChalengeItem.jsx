@@ -1,8 +1,10 @@
 import Input from "../../ui/Input";
 import Btn from "../../ui/Btn";
+import { useGoalsContext } from "../../contexts/GoalsContext";
 
 function ChalengeItem({ day, dayOn }) {
-  const { numDay, chalengeItem } = day;
+  const { dispatch } = useGoalsContext();
+  const { numDay, chalengeItems } = day;
   const onItem = dayOn === numDay;
 
   return (
@@ -19,9 +21,9 @@ function ChalengeItem({ day, dayOn }) {
         <ul
           className={`pr-3 pt-1 ${onItem ? "" : "relative h-11 overflow-hidden"}`}
         >
-          {chalengeItem.map((item) => {
+          {chalengeItems.map((item, index) => {
             return (
-              <li>
+              <li key={index}>
                 <Input type="checkbox" lable={item} />
               </li>
             );
@@ -33,7 +35,12 @@ function ChalengeItem({ day, dayOn }) {
 
         {onItem && (
           <div className="flex justify-end pt-2">
-            <Btn type="primry">بریم روز بعد</Btn>
+            <Btn
+              type="primry"
+              onClick={() => dispatch({ type: "chalenge/goNextDay" })}
+            >
+              بریم روز بعد
+            </Btn>
           </div>
         )}
       </div>

@@ -8,7 +8,7 @@ function Tools({ handleDelete, id }) {
       <button
         className="btn btn-sm btn-error"
         onClick={() => {
-          handleDelete(id);
+          handleDelete({ type: "longTrem/deleteItem", payload: id });
           navigate("/home/long-trem");
         }}
       >

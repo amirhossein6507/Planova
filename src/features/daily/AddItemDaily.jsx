@@ -9,7 +9,7 @@ import { Selecte, Option } from "../../ui/Selecte";
 
 function AddItemDaily() {
   const changeForm = true;
-  const { addDailyGoal } = useGoalsContext();
+  const { dispatch } = useGoalsContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -30,9 +30,7 @@ function AddItemDaily() {
       status: false,
     };
 
-    console.log(newItem);
-
-    addDailyGoal(newItem);
+    dispatch({ type: "daily/newItem", payload: newItem });
 
     navigate("/home");
   };

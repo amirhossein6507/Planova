@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ButtonAdd from "./ButtonAdd";
-import { useGoalsContext } from "../contexts/GoalsContext";
+// import { useGoalsContext } from "../contexts/GoalsContext";
 
 const formatDate = (date) => {
   return Intl.DateTimeFormat("fa", {
@@ -37,7 +37,8 @@ function ListContainer({ children, linkBtnAddTask }) {
 
   return (
     <div className="relative translate-0 grid grid-rows-[auto,1fr]">
-      <div className="p-3 fixed right-5 left-5">
+      <div className="absolute top-0 right-0 left-0 h-10 bg-linear-180 from-white to-transparent "></div>
+      <div className="p-3 fixed right-1 left-1">
         <div className="flex justify-around rounded-full text-neutral-800 backdrop-grayscale-50 backdrop-blur-xs backdrop-brightness-98 p-1 border border-violet-400/30 bg-violet-400/30 z-100">
           <span>{date}📅</span>
           <span>{clock}🕐</span>
@@ -47,6 +48,7 @@ function ListContainer({ children, linkBtnAddTask }) {
       <div className="h-[78dvh] overflow-y-auto pt-13">{children}</div>
 
       <ButtonAdd link={linkBtnAddTask} />
+      <div className="absolute h-8 bg-linear-to-t from-white to-[#fff0] to-96% bottom-0 right-0 left-0"></div>
     </div>
   );
 }

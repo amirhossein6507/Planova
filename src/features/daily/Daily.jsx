@@ -22,7 +22,7 @@ function Daily() {
           </div>
         ) : (
           <>
-            <div className="flex justify-between items-center px-4 py-2 backdrop-grayscale-50 backdrop-blur-xs backdrop-brightness-98  border border-violet-300/30 mx-3 rounded-2xl fixed right-5 left-5">
+            <div className="flex justify-between items-center px-4 py-2 backdrop-grayscale-50 backdrop-blur-xs backdrop-brightness-98  border border-violet-300/30 mx-3 rounded-2xl fixed right-1 left-1">
               <select
                 className="select select-sm bg-violet-200/90 select-primary pr-7 w-5/12 rounded-full border-none outline-none backdrop-blur-2xl text-violet-900"
                 onChange={(e) => setChooseCategory(e.target.value)}

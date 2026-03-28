@@ -3,7 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
+  useReducer,
 } from "react";
 
 const GoalsContext = createContext();
@@ -33,68 +33,125 @@ const GoalsContext = createContext();
 //   },
 // ];
 
-const chalengeData = {
-  // title: "چالش اول",
-  // startDate: "1404/04/04",
-  // dayOn: 1,
-  // days: [
-  //   {
-  //     id: 1,
-  //     numDay: 1,
-  //     chalengeItem: ["زبان", "ری اکت", "فرندز"],
-  //   },
-  //   {
-  //     id: 2,
-  //     numDay: 2,
-  //     chalengeItem: ["زبان", "ری اکت", "فرندز"],
-  //   },
-  // ],
+// const chalengeData = {
+// title: "چالش اول",
+// startDate: "1404/04/04",
+// dayOn: 1,
+// days: [
+//   {
+//     numDay: 1,
+//     chalengeItems: [
+//        {
+//           chalengeId: 12768,
+//           chalengeText: "زبان",
+//           status: false,
+//        }
+//     ],
+//   },
+// ],
+// };
+
+const init = () => {
+  const storedDaily = JSON.parse(localStorage.getItem("daily-goals"));
+  const storedLongTrem = JSON.parse(localStorage.getItem("longTrem-goals"));
+  const storedChalenge = JSON.parse(localStorage.getItem("chalenge"));
+  return {
+    dailyItem: storedDaily || [],
+    longTremItem: storedLongTrem || [],
+    chalengeItem: storedChalenge || {},
+    isOpenMenu: false,
+    // this variable for change data after edit, fixed
+    changer: false,
+  };
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    // data section
+    //    daily
+    case "daily/newItem":
+      return { ...state, dailyItem: [...state.dailyItem, action.payload] };
+
+    case "daily/changeStatus": {
+      const item = state.dailyItem.find((item) => item.id == action.payload);
+      const slate = state.dailyItem.filter((item) => item.id != action.payload);
+      return {
+        ...state,
+        dailyItem: [...slate, { ...item, status: !item.status }],
+      };
+    }
+
+    case "daily/editItem": {
+      const { id, title, description, category } = action.payload;
+      const curGoal = state.dailyItem.find((item) => item.id == id);
+      curGoal.title = title;
+      curGoal.description = description;
+      curGoal.category = category;
+      return { ...state, changer: !state.changer };
+    }
+
+    case "daily/deleteItem":
+      return {
+        ...state,
+        dailyItem: state.dailyItem.filter((item) => item.id !== action.payload),
+      };
+
+    // delete all item after end day
+    case "daily/deleteAllItem":
+      return { ...state };
+
+    //    longTrem
+    case "longTrem/newItem":
+      return {
+        ...state,
+        longTremItem: [...state.longTremItem, action.payload],
+      };
+
+    case "longTrem/editItem":
+      return { ...state };
+
+    case "longTrem/deleteItem":
+      return {
+        ...state,
+        longTremItem: state.longTremItem.filter(
+          (item) => item.id != action.payload,
+        ),
+      };
+
+    //    chalenge
+    case "chalenge/adding":
+      return { ...state, chalengeItem: action.payload };
+    case "chalenge/goNextDay":
+      return {
+        ...state,
+        chalengeItem: {
+          ...state.chalengeItem,
+          dayOn: state.chalengeItem.dayOn + 1,
+        },
+      };
+
+    case "chalenge/ending":
+      // checke reason (complite or gameOver)
+      return { ...state, chalengeItem: {} };
+
+    // ui section
+    case "ui/isOpenMenu":
+      return { ...state, isOpenMenu: !state.isOpenMenu };
+    case "ui/closeMenu":
+      return { ...state, isOpenMenu: false };
+
+    default:
+      return state;
+  }
 };
 
 const GoalsProvider = ({ children }) => {
-  const [dailyItem, setDailyItem] = useState(() => {
-    return JSON.parse(localStorage.getItem("daily-goals")) || [];
-  });
-  const [longTremItem, setLongTremItem] = useState(() => {
-    return JSON.parse(localStorage.getItem("longTrem-goals")) || [];
-  });
-  const [chalengeItem, setChalengeItem] = useState(chalengeData);
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [
+    { dailyItem, longTremItem, chalengeItem, changer, isOpenMenu },
+    dispatch,
+  ] = useReducer(reducer, null, init);
 
   const complatedNum = dailyItem.filter((item) => item.status == true).length;
-
-  const addDailyGoal = (goal) => {
-    setDailyItem((goals) => [...goals, goal]);
-  };
-
-  const editDailyGoal = (goal) => {
-    setDailyItem((goals) => {
-      goals.filter((item) => item.id !== goal.id);
-      return [...goals, goal];
-    });
-    console.log(typeof goal.id, typeof dailyItem[1].id);
-  };
-
-  const deleteDailyGoal = (id) => {
-    setDailyItem((goals) => goals.filter((goal) => goal.id !== id));
-  };
-
-  const changeStatusDaily = (id) => {
-    setDailyItem((goals) => {
-      const item = goals.find((item) => item.id == id);
-      const result = goals.filter((item) => item.id != id);
-      return [...result, { ...item, status: !item.status }];
-      // for (let i = 0; i <= goals.length; i++) {
-      //   if (goals[i].id == id) {
-      //     return (goals.at(i).status = true);
-      //   }
-      // }
-    });
-  };
-
-  const deleteAllDailyItem = () => {
-    setDailyItem([]);
-  };
 
   const getDataDailyGoal = useCallback(
     (id) => {
@@ -110,17 +167,13 @@ const GoalsProvider = ({ children }) => {
     [longTremItem],
   );
 
-  const addLongTremItem = (goal) => {
-    setLongTremItem((cur) => [...cur, goal]);
-  };
-
-  const deleteLongTremGoal = (id) => {
-    setLongTremItem((goals) => goals.filter((goal) => goal.id !== id));
-  };
+  useEffect(() => {
+    localStorage.setItem("chalenge", JSON.stringify(chalengeItem));
+  }, [chalengeItem, changer]);
 
   useEffect(() => {
     localStorage.setItem("daily-goals", JSON.stringify(dailyItem));
-  }, [dailyItem]);
+  }, [dailyItem, changer]);
 
   useEffect(() => {
     localStorage.setItem("longTrem-goals", JSON.stringify(longTremItem));
@@ -130,22 +183,13 @@ const GoalsProvider = ({ children }) => {
     <GoalsContext.Provider
       value={{
         isOpenMenu,
-        setIsOpenMenu,
         dailyItem,
-        addDailyGoal,
-        editDailyGoal,
-        changeStatusDaily,
-        deleteDailyGoal,
         complatedNum,
-        deleteAllDailyItem,
         getDataDailyGoal,
         longTremItem,
-        setLongTremItem,
         getDataLongGoal,
-        addLongTremItem,
-        deleteLongTremGoal,
         chalengeItem,
-        setChalengeItem,
+        dispatch,
       }}
     >
       {children}

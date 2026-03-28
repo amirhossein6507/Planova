@@ -15,7 +15,7 @@ const formatDate = (date) => {
 };
 
 function AddItemLongTrem() {
-  const { addLongTremItem } = useGoalsContext();
+  const { dispatch } = useGoalsContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [steps, setSteps] = useState([]);
@@ -55,7 +55,7 @@ function AddItemLongTrem() {
       checked: false,
     };
 
-    addLongTremItem(newItem);
+    dispatch({ type: "longTrem/newItem", payload: newItem });
 
     navigate("/home/long-trem");
   };

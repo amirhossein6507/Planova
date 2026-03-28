@@ -4,7 +4,7 @@ import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useNavigate, useParams } from "react-router";
 
 function EditDaily() {
-  const { getDataDailyGoal, editDailyGoal } = useGoalsContext();
+  const { getDataDailyGoal, editDailyGoal, dispatch } = useGoalsContext();
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,7 +36,7 @@ function EditDaily() {
       status: false,
     };
 
-    editDailyGoal(newItem);
+    dispatch({ type: "daily/editItem", payload: newItem });
 
     navigate("/home");
   };

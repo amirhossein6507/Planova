@@ -5,7 +5,7 @@
   div {
     width: 25px;
     height: 2px;
-    background-color: black;
+    background-color: #d0f;
   }
   &::before {
     content: "";
@@ -33,7 +33,7 @@
   div {
     width: 25px;
     height: 2px;
-    background-color: black;
+    background-color: #d0f;
     transform: rotate(45deg);
   }
   &::after {
