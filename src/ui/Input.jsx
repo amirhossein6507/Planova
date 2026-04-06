@@ -7,6 +7,7 @@ function Input({
   onChange,
   onGetInput,
   required = false,
+  checked,
 }) {
   // const [inputValue, setInputValue] = useState(value);
   let styleContainer;
@@ -59,8 +60,9 @@ function Input({
             className={styleInput}
             type={type}
             value={value}
-            onChange={handleChange}
+            onChange={onChange || handleChange}
             required={required}
+            checked={checked}
           />
         )}
         {type == "textarea" && (

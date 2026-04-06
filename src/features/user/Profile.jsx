@@ -1,7 +1,11 @@
+import { useGoalsContext } from "../../contexts/GoalsContext";
 import ButtonBack from "../../ui/ButtonBack";
 import styles from "./Profile.module.css";
 
 function Profile() {
+  const { profile } = useGoalsContext();
+  const { username, points } = profile;
+
   return (
     <div className={`${styles.main} ${styles.background}`}>
       <ButtonBack />
@@ -14,10 +18,10 @@ function Profile() {
           />
         </div>
         <div className="flex flex-col gap-3 w-full p-5 divide-neutral-300/50  divide-y text-[13px]">
-          <h1 className="text-center text-xl">full name</h1>
+          <h1 className="text-center text-xl">{username}</h1>
           <div className="flex justify-between w-full pb-2">
-            <p>تعداد اهداف روزانه</p>
-            <span>100</span>
+            <p>امتیاز</p>
+            <span>{points}</span>
           </div>
           <div className="flex justify-between w-full pb-2">
             <p>تعداد اهداف طولانی</p>

@@ -40,7 +40,9 @@ function DailyItem({ goal }) {
         )}
       </div>
       <div className="flex flex-col justify-center items-center gap-2 w-15">
-        <div className="flex justify-around w-full border border-neutral-400/50 rounded-full overflow-hidden">
+        <div
+          className={`flex justify-around items-center w-full border border-neutral-400/50 rounded-full overflow-hidden transition duration-300 ${goal.status ? "bg-emerald-300" : ""}`}
+        >
           <input
             type="checkbox"
             name=""
@@ -49,6 +51,7 @@ function DailyItem({ goal }) {
             onClick={() =>
               dispatch({ type: "daily/changeStatus", payload: id })
             }
+            className="checkbox  bg-white text-violet-500 border-violet-500 h-4 w-4"
           />
           <button
             onClick={() => dispatch({ type: "daily/deleteItem", payload: id })}

@@ -5,9 +5,9 @@ import App from "./App.jsx";
 import AppLayout from "./ui/AppLayout.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <AppLayout>
-      <App />
-    </AppLayout>
-  </StrictMode>,
+  // <StrictMode>
+  <AppLayout>
+    <App />
+  </AppLayout>,
+  // {/* </StrictMode>, */}
 );

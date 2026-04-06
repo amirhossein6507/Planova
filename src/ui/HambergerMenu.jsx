@@ -42,6 +42,26 @@ function HambergerMenu() {
           );
         })}
       </ul>
+
+      <div className="flex items-start justify-center py-2  gap-4 text-white ">
+        <div className="center-content flex-col gap-1 cursor-pointer">
+          <span
+            className="w-10 h-10 bg-black/5
+           rounded-full center-content"
+          >
+            💻
+          </span>
+          <span className="text-[10px] block w-12 text-center">
+            افزودن به صفحه
+          </span>
+        </div>
+        <div className="center-content flex-col gap-1">
+          <span className="w-10 h-10 bg-black/5 backdrop-blur-md rounded-full center-content">
+            ℹ️
+          </span>
+          <span className="text-[10px] block w-12 text-center"> درباره ما</span>
+        </div>
+      </div>
     </div>
   );
 }

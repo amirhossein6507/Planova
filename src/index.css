@@ -66,11 +66,11 @@ body {
   margin: 0 auto;
 }
 
-:checked {
+/* :checked {
   background-color: #d0f;
   color: white;
   border-radius: 200px;
-}
+} */
 
 .background-comingsoon {
   display: flex;
@@ -122,4 +122,10 @@ body {
 }
 .animationCloseMenu {
   animation: menuClose 700ms linear;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

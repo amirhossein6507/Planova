@@ -52,7 +52,7 @@ function AddItemLongTrem() {
       endDate: selectDateOption == "yes-date" ? endDate : "",
       whyTarget,
       steps,
-      checked: false,
+      status: false,
     };
 
     dispatch({ type: "longTrem/newItem", payload: newItem });

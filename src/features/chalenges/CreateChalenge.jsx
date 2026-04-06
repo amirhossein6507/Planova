@@ -11,7 +11,7 @@ function CreateChalenge() {
   const [startDate, setStartDate] = useState("");
   const [days, setDays] = useState([]);
   const [chalengeItems, setChalengeItems] = useState([]);
-  const [chalengeItem, setChalengeItem] = useState("");
+  const [chalengeContent, setChalengeContent] = useState("");
   const [numDay, setNumDay] = useState(1);
 
   const handleSubmit = (e) => {
@@ -38,8 +38,25 @@ function CreateChalenge() {
     setNumDay((cur) => ++cur);
   };
 
+  const handleAddChalengeItems = (e) => {
+    e.preventDefault();
+
+    const newItem = {
+      chalengeId: Math.random(),
+      chalengeContent: chalengeContent,
+      chalengeStatus: false,
+    };
+
+    setChalengeItems((cur) => [...cur, newItem]);
+    setChalengeContent("");
+  };
+
+  const handleDeleteChalengeItem = (id) => {
+    setChalengeItems((cur) => cur.filter((item) => item.chalengeId !== id));
+  };
+
   return (
-    <div className="h-dvh">
+    <div className="h-dvh relative">
       <Header />
       <div className="h-10/12 flex justify-center items-center">
         <Form onSubmit={handleSubmit} title="چالشتو بنویس">
@@ -52,16 +69,13 @@ function CreateChalenge() {
           <div className="bg-white/50 rounded-2xl p-3 space-y-3">
             <Input
               lable={`چالش روز ${numDay} بنویس`}
-              value={chalengeItem}
-              onGetInput={setChalengeItem}
+              value={chalengeContent}
+              onGetInput={setChalengeContent}
             />
             <div className="flex gap-3">
               <Btn
-                onClick={(e) => {
-                  e.preventDefault();
-                  setChalengeItems((cur) => [...cur, chalengeItem]);
-                  setChalengeItem("");
-                }}
+                type="black"
+                onClick={handleAddChalengeItems}
                 className="grow"
               >
                 اضافه کن
@@ -70,12 +84,23 @@ function CreateChalenge() {
             <ul className="bg-white p-3 rounded-xl text-black space-y-2">
               {chalengeItems.length != 0 && (
                 <>
-                  {chalengeItems.map((item, index) => (
-                    <li key={index} className="border-r border-violet-500 pr-2">
-                      {item}
+                  {chalengeItems.map((item) => (
+                    <li
+                      key={item.chalengeId}
+                      className="border-r border-violet-500 pr-2"
+                    >
+                      {item.chalengeContent}
+                      <button
+                        onClick={() =>
+                          handleDeleteChalengeItem(item.chalengeId)
+                        }
+                        className="mx-2 cursor-pointer"
+                      >
+                        ❌
+                      </button>
                     </li>
                   ))}
-                  <Btn onClick={handleAddDate} className="grow">
+                  <Btn type="black" onClick={handleAddDate} className="grow">
                     امروزو ذخیره کن
                   </Btn>
                 </>
@@ -89,7 +114,7 @@ function CreateChalenge() {
             </ul>
           </div>
 
-          <Btn>شروع کن چالشو</Btn>
+          <Btn type="black">شروع کن چالشو</Btn>
         </Form>
       </div>
     </div>

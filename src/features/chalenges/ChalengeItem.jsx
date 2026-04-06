@@ -1,11 +1,22 @@
 import Input from "../../ui/Input";
 import Btn from "../../ui/Btn";
 import { useGoalsContext } from "../../contexts/GoalsContext";
+import { useState } from "react";
 
-function ChalengeItem({ day, dayOn }) {
+function ChalengeItem({ day, dayOn, daysLength }) {
   const { dispatch } = useGoalsContext();
   const { numDay, chalengeItems } = day;
+
   const onItem = dayOn === numDay;
+  const lastDay = daysLength !== numDay;
+  const fristDay = numDay !== 1;
+
+  const handleChangeStatus = (e, chalengeId) => {
+    dispatch({
+      type: "chalenge/changeStatus",
+      payload: { id: chalengeId, currentDay: numDay },
+    });
+  };
 
   return (
     <li
@@ -24,7 +35,12 @@ function ChalengeItem({ day, dayOn }) {
           {chalengeItems.map((item, index) => {
             return (
               <li key={index}>
-                <Input type="checkbox" lable={item} />
+                <Input
+                  type="checkbox"
+                  lable={item.chalengeContent}
+                  onChange={(e) => handleChangeStatus(e, item.chalengeId)}
+                  checked={item.chalengeStatus}
+                />
               </li>
             );
           })}
@@ -34,13 +50,23 @@ function ChalengeItem({ day, dayOn }) {
         </ul>
 
         {onItem && (
-          <div className="flex justify-end pt-2">
-            <Btn
-              type="primry"
-              onClick={() => dispatch({ type: "chalenge/goNextDay" })}
-            >
-              بریم روز بعد
-            </Btn>
+          <div className="flex justify-end gap-2 pt-2">
+            {lastDay && (
+              <Btn
+                type="primry"
+                onClick={() => dispatch({ type: "chalenge/goNextDay" })}
+              >
+                بریم روز بعد
+              </Btn>
+            )}
+            {fristDay && (
+              <Btn
+                type="primry"
+                onClick={() => dispatch({ type: "chalenge/forwardBack" })}
+              >
+                بریم روز قبل
+              </Btn>
+            )}
           </div>
         )}
       </div>

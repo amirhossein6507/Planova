@@ -37,7 +37,7 @@ function Daily() {
                 {dailyItem.length === complatedNum
                   ? "امروزو ترکوندی👏"
                   : `
-                ${complatedNum} تا از ${dailyItem.length} تارو انجام دادی😉
+                ${complatedNum} از ${dailyItem.length} تارو انجام دادی😉
               `}
               </p>
             </div>

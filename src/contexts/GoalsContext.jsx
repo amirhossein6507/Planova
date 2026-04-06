@@ -29,7 +29,7 @@ const GoalsContext = createContext();
 //     endDate: "1404/04/05",
 //     whyTarget: "چرایی هدف",
 //     steps: ["قدم اول", "قدم دوم", "قدم سوم"],
-//     checked: false,
+//     status: false,
 //   },
 // ];
 
@@ -51,11 +51,17 @@ const GoalsContext = createContext();
 // ],
 // };
 
+const fakeDataUser = {
+  username: "amir",
+  points: 0,
+};
+
 const init = () => {
   const storedDaily = JSON.parse(localStorage.getItem("daily-goals"));
   const storedLongTrem = JSON.parse(localStorage.getItem("longTrem-goals"));
   const storedChalenge = JSON.parse(localStorage.getItem("chalenge"));
   return {
+    profile: fakeDataUser || {},
     dailyItem: storedDaily || [],
     longTremItem: storedLongTrem || [],
     chalengeItem: storedChalenge || {},
@@ -68,7 +74,7 @@ const init = () => {
 const reducer = (state, action) => {
   switch (action.type) {
     // data section
-    //    daily
+    // daily
     case "daily/newItem":
       return { ...state, dailyItem: [...state.dailyItem, action.payload] };
 
@@ -100,12 +106,23 @@ const reducer = (state, action) => {
     case "daily/deleteAllItem":
       return { ...state };
 
-    //    longTrem
+    // longTrem
     case "longTrem/newItem":
       return {
         ...state,
         longTremItem: [...state.longTremItem, action.payload],
       };
+
+    case "longTrem/changeStatus": {
+      const item = state.longTremItem.find((item) => item.id == action.payload);
+      const slate = state.longTremItem.filter(
+        (item) => item.id != action.payload,
+      );
+      return {
+        ...state,
+        longTremItem: [...slate, { ...item, status: !item.status }],
+      };
+    }
 
     case "longTrem/editItem":
       return { ...state };
@@ -118,9 +135,30 @@ const reducer = (state, action) => {
         ),
       };
 
-    //    chalenge
+    // chalenge
     case "chalenge/adding":
       return { ...state, chalengeItem: action.payload };
+
+    //get numDay in days array and found chalnengeId , changened status => payload: numday & chalengId
+    case "chalenge/changeStatus": {
+      const { id, currentDay } = action.payload;
+
+      const day = state.chalengeItem.days.find(
+        (item) => item.numDay == currentDay,
+      );
+
+      const chalengeSelected = day.chalengeItems.find(
+        (item) => item.chalengeId == id,
+      );
+
+      // whene strick mode on ==== bug (don't save changestatus)
+      chalengeSelected.chalengeStatus = !chalengeSelected.chalengeStatus;
+      return {
+        ...state,
+        changer: !state.changer,
+      };
+    }
+
     case "chalenge/goNextDay":
       return {
         ...state,
@@ -130,15 +168,35 @@ const reducer = (state, action) => {
         },
       };
 
-    case "chalenge/ending":
+    case "chalenge/forwardBack":
+      return {
+        ...state,
+        chalengeItem: {
+          ...state.chalengeItem,
+          dayOn: state.chalengeItem.dayOn - 1,
+        },
+      };
+
+    case "chalenge/ending": {
       // checke reason (complite or gameOver)
-      return { ...state, chalengeItem: {} };
+      const points = state.profile.points;
+      const complated = action.payload === "complate";
+      return {
+        ...state,
+        chalengeItem: {},
+        profile: complated
+          ? { ...state.profile, points: points + 10 }
+          : { ...state.profile, points: points - 10 },
+      };
+    }
 
     // ui section
     case "ui/isOpenMenu":
       return { ...state, isOpenMenu: !state.isOpenMenu };
     case "ui/closeMenu":
       return { ...state, isOpenMenu: false };
+
+    // profile
 
     default:
       return state;
@@ -147,7 +205,7 @@ const reducer = (state, action) => {
 
 const GoalsProvider = ({ children }) => {
   const [
-    { dailyItem, longTremItem, chalengeItem, changer, isOpenMenu },
+    { dailyItem, longTremItem, chalengeItem, changer, isOpenMenu, profile },
     dispatch,
   ] = useReducer(reducer, null, init);
 
@@ -185,10 +243,11 @@ const GoalsProvider = ({ children }) => {
         isOpenMenu,
         dailyItem,
         complatedNum,
-        getDataDailyGoal,
         longTremItem,
-        getDataLongGoal,
         chalengeItem,
+        profile,
+        getDataDailyGoal,
+        getDataLongGoal,
         dispatch,
       }}
     >

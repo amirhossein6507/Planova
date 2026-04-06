@@ -2,12 +2,13 @@
   width: 100%;
   border-radius: 100px;
   overflow: hidden;
-  height: 10px;
+  height: 15px;
+  transition: all 300ms;
 }
 
 ::-webkit-progress-bar {
-  background-color: rgb(255, 94, 66);
+  background-color: oklch(80.8% 0.114 19.571);
 }
 ::-webkit-progress-value {
-  background-color: rgb(7, 203, 0);
+  background-color: oklch(84.5% 0.143 164.978);
 }
