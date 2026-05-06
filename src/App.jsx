@@ -11,10 +11,11 @@ import LongTremShow from "./features/lonng-trem/LongTremShow";
 import AddItemLongTrem from "./features/lonng-trem/AddItemLongTrem";
 import ComingSoon from "./ui/ComingSoon";
 import Chalenge from "./features/chalenges/Chalenge";
+import AppLayout from "./ui/AppLayout";
 
 function App() {
   return (
-    <div className="container-main">
+    <div>
       <GoalsProvider>
         <HashRouter>
           <Routes>

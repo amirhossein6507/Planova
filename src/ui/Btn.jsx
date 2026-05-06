@@ -1,4 +1,6 @@
-function Btn({ children, onClick, type, className = "" }) {
+import { Link } from "react-router";
+
+function Btn({ children, onClick, type, className = "", to }) {
   let styleBtn;
   let styleContainer;
 
@@ -35,9 +37,22 @@ function Btn({ children, onClick, type, className = "" }) {
     }
   }
 
+  if (to) {
+    return (
+      <div className={`${styleContainer} ${className}`}>
+        <Link
+          to={to}
+          onClick={onClick}
+          className={`${styleBtn} cursor-pointer inline-block text-center`}
+        >
+          {children}
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className={`${styleContainer} ${className}`}>
-      {/* <button className="h-full z-2 group-hover:left-0 transition-all duration-300 absolute bg-violet-400 w-full -left-full"></button> */}
       <button onClick={onClick} className={`${styleBtn} cursor-pointer`}>
         {children}
       </button>

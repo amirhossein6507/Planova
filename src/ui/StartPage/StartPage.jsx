@@ -1,26 +1,27 @@
 import { Link } from "react-router";
 import styles from "./StartPage.module.css";
+import Btn from "../Btn";
 
 function StartPage() {
   return (
     <main>
-      <h1 className={styles.logo}>
-        <span>P</span>lanova
-      </h1>
+      <div className={styles.logo}>
+        <span>Planova</span>
+        <div></div>
+      </div>
       <div className={styles.introduction}>
-        <p>
-          !اینجا قراره ذهنت آروم‌ تر باشه و هدفت واضح‌ تر
-          <br />
-          برای آینده‌ هدف مشخص کنی 🎯
-          <br />
-          کارهای روزانه‌ تو مرتب و منظم بچینی 🗂
-          <br />
-          پیشرفتتو ببینی و انگیزه بگیری 🚀
-        </p>
-        <div className="flex justify-center items-center">
-          <Link to="/home" className={styles.button}>
+        <div className="">
+          <ul className="list-disc space-y-2">
+            <li>!اینجا قراره ذهنت آروم‌ تر باشه و هدفت واضح‌ تر</li>
+            <li>برای آینده‌ هدف مشخص کنی</li>
+            <li>کارهای روزانه‌ تو مرتب و منظم بچینی</li>
+            <li>پیشرفتتو ببینی و انگیزه بگیری</li>
+          </ul>
+        </div>
+        <div className="w-full">
+          <Btn to="/home" type="black">
             بزن بریم
-          </Link>
+          </Btn>
         </div>
       </div>
     </main>

@@ -1,3 +1,53 @@
+@keyframes background {
+  from {
+    background-color: #222;
+  }
+  to {
+    background-color: #aaa;
+  }
+}
+
+@keyframes logoContianer {
+  0% {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100;
+  }
+}
+@keyframes logoText {
+  0% {
+    transform: translateX(-120%);
+  }
+  50% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes introduction {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 100;
+  }
+}
+@keyframes introductionFront {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -6,60 +56,85 @@ main {
   gap: 30px;
   height: 100dvh;
   padding-top: 80px;
-  /* background-image: url("https://wallpapercat.com/w/full/8/7/7/194290-3840x2160-desktop-4k-outer-space-wallpaper-photo.jpg"); */
-  /* background-image: url("https://images.stockcake.com/public/9/8/6/986d86eb-42e1-4b4e-a629-bafd27059793/elegant-saturn-portrait-stockcake.jpg"); */
+  background-image: url("../../assets/image/start-page.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #5558;
   background-blend-mode: multiply;
+  animation: background 1000ms forwards;
 }
 
 main .logo {
-  display: flex;
+  display: block;
   flex-direction: row-reverse;
   color: #fff;
   font-size: 40px;
   text-shadow: 0 0 7px #fff;
-  /* background-color: #32323249; */
-  padding: 0 10px;
+  padding: 6px 0px 5px 5px;
   margin-bottom: 50px;
   font-weight: 600;
   line-height: 1;
-  border-width: 0 0 3px 0;
+  border-width: 0 0 0 3px;
   border-style: solid;
   border-color: white;
-  padding: 0;
+  animation: logoContianer 1s forwards linear;
+  overflow: hidden;
   span {
-    /* text-shadow: 0 0 10px #f0f; */
-    color: #5a5a5a;
-    text-align: center;
-    background-color: white;
-    line-height: 1;
-    vertical-align: middle;
-    padding: 0 3px;
+    display: inline-block;
+    animation: logoText 2s linear forwards;
   }
 }
 
 main .introduction {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
   background-color: #3335;
   color: #fee;
   backdrop-filter: blur(5px);
-  padding: 15px 10px;
+  padding: 20px 15px;
   width: 80%;
-  border-radius: 40px 13px 40px 13px;
+  border-radius: 35px;
   border: 1px solid #ddd;
   font-size: 14px;
   line-height: 28px;
   transition: all 0.5s;
-  &:hover {
-    border-radius: 13px 40px 13px 40px;
+  position: relative;
+  overflow: hidden;
+  animation: introduction 1s forwards;
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(136, 41, 231);
+    animation: introductionFront 3s 1s forwards;
+  }
+  &::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(30, 0, 60);
+    z-index: -1;
+    animation: introductionFront 4s 1s forwards;
   }
 }
 
 main .button {
+  width: fit-content;
   background-color: #a0d;
   border-radius: 100px;
   padding: 0px 30px;
   margin-top: 10px;
+  transition: all;
+  transition-duration: 1s;
+  &:hover {
+    width: 100%;
+  }
 }

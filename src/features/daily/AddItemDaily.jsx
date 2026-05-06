@@ -56,7 +56,7 @@ function AddItemDaily() {
             <Option value="study">درسی📚</Option>
           </Selecte>
 
-          <Btn>اضفافه کردن</Btn>
+          <Btn type="black">اضفافه کردن</Btn>
         </Form>
       </div>
     );

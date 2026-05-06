@@ -1,5 +1,5 @@
 function AppLayout({ children }) {
-  return <div>{children}</div>;
+  return <div className="container-main">{children}</div>;
 }
 
 export default AppLayout;
