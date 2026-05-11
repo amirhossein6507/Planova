@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import ButtonAdd from "./ButtonAdd";
+import { MdDateRange } from "react-icons/md";
+import { BsClock } from "react-icons/bs";
 // import { useGoalsContext } from "../contexts/GoalsContext";
 
 const formatDate = (date) => {
@@ -40,8 +42,14 @@ function ListContainer({ children, linkBtnAddTask }) {
       <div className="absolute top-0 right-0 left-0 h-10 bg-linear-180 from-white to-transparent "></div>
       <div className="p-3 fixed right-1 left-1">
         <div className="flex justify-around rounded-full text-neutral-800 backdrop-grayscale-50 backdrop-blur-xs backdrop-brightness-98 p-1 border border-violet-400/30 bg-violet-400/30 z-100">
-          <span>{date}📅</span>
-          <span>{clock}🕐</span>
+          <span className="flex gap-1">
+            {date}
+            <MdDateRange size={20} />
+          </span>
+          <span className="flex gap-1">
+            {clock}
+            <BsClock size={18} />
+          </span>
         </div>
       </div>
 

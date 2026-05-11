@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 import { useGoalsContext } from "../contexts/GoalsContext";
+import { BiDesktop } from "react-icons/bi";
+import { ImInfo } from "react-icons/im";
 
 function HambergerMenu() {
   const { isOpenMenu, dispatch } = useGoalsContext();
@@ -49,7 +51,7 @@ function HambergerMenu() {
             className="w-10 h-10 bg-black/5
            rounded-full center-content"
           >
-            💻
+            <BiDesktop size={20} color="white" />
           </span>
           <span className="text-[10px] block w-12 text-center">
             افزودن به صفحه
@@ -57,7 +59,7 @@ function HambergerMenu() {
         </div>
         <div className="center-content flex-col gap-1">
           <span className="w-10 h-10 bg-black/5 backdrop-blur-md rounded-full center-content">
-            ℹ️
+            <ImInfo size={20} color="white" />
           </span>
           <span className="text-[10px] block w-12 text-center"> درباره ما</span>
         </div>

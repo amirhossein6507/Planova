@@ -3,6 +3,7 @@ import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useNavigate } from "react-router";
 import Input from "../../ui/Input";
+import { CgCloseO } from "react-icons/cg";
 
 const formatDate = (date) => {
   const dateForemted = Intl.DateTimeFormat("en", {
@@ -121,14 +122,14 @@ function AddItemLongTrem() {
               <ul className="w-full list list-disc px-7 py-2 my-2 mx-3 border rounded-2xl">
                 {steps.map((item, index) => {
                   return (
-                    <li key={index}>
+                    <li key={index} className="flex items-center gap-2">
                       {item}{" "}
                       <button
                         onClick={() =>
                           setSteps((cur) => cur.filter((elem) => elem !== item))
                         }
                       >
-                        ❌
+                        <CgCloseO size={17} color="#ee5555" />
                       </button>
                     </li>
                   );

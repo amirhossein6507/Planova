@@ -5,6 +5,7 @@ import Btn from "../../ui/Btn";
 import { useState } from "react";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import AppLayout from "../../ui/AppLayout";
+import { CgCloseO } from "react-icons/cg";
 
 function CreateChalenge() {
   const { dispatch } = useGoalsContext();
@@ -41,6 +42,10 @@ function CreateChalenge() {
 
   const handleAddChalengeItems = (e) => {
     e.preventDefault();
+    if (chalengeContent.length <= 0) {
+      alert("باید یه وظیفه بنویسی!");
+      return;
+    }
 
     const newItem = {
       chalengeId: Math.random(),
@@ -89,7 +94,7 @@ function CreateChalenge() {
                     {chalengeItems.map((item) => (
                       <li
                         key={item.chalengeId}
-                        className="border-r border-violet-500 pr-2"
+                        className="flex items-center border-r border-violet-500 pr-2"
                       >
                         {item.chalengeContent}
                         <button
@@ -98,7 +103,7 @@ function CreateChalenge() {
                           }
                           className="mx-2 cursor-pointer"
                         >
-                          ❌
+                          <CgCloseO color="#ee5555" size={17} />
                         </button>
                       </li>
                     ))}
