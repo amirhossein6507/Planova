@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Input from "../../ui/Input";
 import { CgCloseO } from "react-icons/cg";
 import { formatDate } from "../../utils/formatDate";
@@ -10,16 +10,35 @@ import Btn from "../../ui/Btn";
 import { HiPlus } from "react-icons/hi2";
 import { Option, Selecte } from "../../ui/Selecte";
 
-function AddItemLongTrem() {
+function EditLongTrem() {
+  const { getDataLongGoal } = useGoalsContext();
+  const { longTremId } = useParams();
+
+  const initialValue = getDataLongGoal(longTremId);
+  const {
+    title: initTitle,
+    description: initDesc,
+    steps: initSteps,
+    whyTarget: initWhyTarget,
+    createDate: initCreateDate,
+    endDate: initEndDate,
+    category: initCategory,
+    timer,
+  } = initialValue;
+
   const { dispatch } = useGoalsContext();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [steps, setSteps] = useState([]);
-  const [whyTarget, setWhyTarget] = useState("");
-  const [category, setCategory] = useState("none");
-  const [createDate, setCreateDate] = useState(formatDate(new Date()));
-  const [endDate, setEndDate] = useState("");
-  const [selectDateOption, setSelectDateOption] = useState("no-date");
+  const [title, setTitle] = useState(initTitle || "");
+  const [description, setDescription] = useState(initDesc || "");
+  const [steps, setSteps] = useState(initSteps || []);
+  const [whyTarget, setWhyTarget] = useState(initWhyTarget || "");
+  const [category, setCategory] = useState(initCategory || "none");
+  const [createDate, setCreateDate] = useState(
+    initCreateDate || formatDate(new Date()),
+  );
+  const [endDate, setEndDate] = useState(initEndDate || "");
+  const [selectDateOption, setSelectDateOption] = useState(
+    (timer && "yes-date") || "no-date",
+  );
   const [itemStep, setItemStep] = useState("");
   const navigate = useNavigate();
 
@@ -39,7 +58,7 @@ function AddItemLongTrem() {
     }
 
     const newItem = {
-      id: Math.random(),
+      id: longTremId,
       title,
       description,
       category,
@@ -51,7 +70,7 @@ function AddItemLongTrem() {
       status: false,
     };
 
-    dispatch({ type: "longTrem/newItem", payload: newItem });
+    dispatch({ type: "longTrem/editItem", payload: newItem });
 
     navigate("/home/long-trem");
   };
@@ -73,18 +92,13 @@ function AddItemLongTrem() {
     <div className="h-screen flex justify-center items-center">
       <ButtonBack link="/home/long-trem" />
       <Form action="" onSubmit={handleSubmit}>
-        <Input
-          lable="عنوان"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Input lable="عنوان" type="text" value={title} onGetInput={setTitle} />
 
         <Input
           lable="توضیحات"
           type="textarea"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onGetInput={setDescription}
         />
 
         <div className="flex flex-wrap items-center justify-between">
@@ -93,7 +107,7 @@ function AddItemLongTrem() {
             className="w-9/12"
             type="text"
             value={itemStep}
-            onChange={(e) => setItemStep(e.target.value)}
+            onGetInput={setItemStep}
           />
           <Btn type="violet" className="w-2/12" onClick={handleAddStep}>
             <HiPlus />
@@ -122,7 +136,7 @@ function AddItemLongTrem() {
           lable="چرا این هدف مهمه"
           type="text"
           value={whyTarget}
-          onChange={(e) => setWhyTarget(e.target.value)}
+          onGetInput={setWhyTarget}
         />
 
         <div className="border border-white rounded-2xl p-2">
@@ -179,10 +193,7 @@ function AddItemLongTrem() {
           </div>
         </div>
         <div className="w-full flex">
-          <Selecte
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
+          <Selecte value={category} onGetValue={setCategory}>
             <Option value="none" selected>
               بدون دسته بندی
             </Option>
@@ -192,10 +203,10 @@ function AddItemLongTrem() {
           </Selecte>
         </div>
 
-        <Btn type="black">اضافه کردن</Btn>
+        <Btn type="black">ویرایش کردن</Btn>
       </Form>
     </div>
   );
 }
 
-export default AddItemLongTrem;
+export default EditLongTrem;

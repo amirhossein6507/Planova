@@ -124,8 +124,28 @@ const reducer = (state, action) => {
       };
     }
 
-    case "longTrem/editItem":
-      return { ...state };
+    case "longTrem/editItem": {
+      const {
+        id,
+        title,
+        description,
+        category,
+        steps,
+        whyTarget,
+        createDate,
+        endDate,
+      } = action.payload;
+      const curGoal = state.longTremItem.find((item) => item.id == id);
+      console.log(curGoal);
+      curGoal.title = title;
+      curGoal.description = description;
+      curGoal.category = category;
+      curGoal.steps = steps;
+      curGoal.whyTarget = whyTarget;
+      curGoal.createDate = createDate;
+      curGoal.endDate = endDate;
+      return { ...state, changer: !state.changer };
+    }
 
     case "longTrem/deleteItem":
       return {
@@ -220,7 +240,7 @@ const GoalsProvider = ({ children }) => {
 
   const getDataLongGoal = useCallback(
     (id) => {
-      return longTremItem.find((goals) => goals.id == id);
+      return longTremItem?.find((goals) => goals.id == id);
     },
     [longTremItem],
   );

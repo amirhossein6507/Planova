@@ -12,7 +12,6 @@ function DailyItem({ goal }) {
 
   const handleDeleteItem = () => {
     const result = window.confirm("مطمئنی که میخوای پاکش کنی؟");
-    console.log(result);
     if (result) {
       dispatch({ type: "daily/deleteItem", payload: id });
     } else {
@@ -39,9 +38,11 @@ function DailyItem({ goal }) {
           <div className="flex items-start justify-between w-12/12">
             <p
               className={`text-[13px] text-right pt-1 w-full ${id == expend ? "text-expend" : "text-collaps"}`}
+              style={{ whiteSpace: expend ? "pre-line" : "nowrap" }}
             >
               {description}
             </p>
+
             <button
               onClick={() => setExpend((cur) => (cur != id ? id : 0))}
               className="cursor-pointer"

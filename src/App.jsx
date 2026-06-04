@@ -12,6 +12,7 @@ import AddItemLongTrem from "./features/lonng-trem/AddItemLongTrem";
 import ComingSoon from "./ui/ComingSoon";
 import Chalenge from "./features/chalenges/Chalenge";
 import AppLayout from "./ui/AppLayout";
+import EditLongTrem from "./features/lonng-trem/EditLongTrem";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
               <Route path="long-trem/:id" element={<LongTremShow />} />
             </Route>
             <Route path="add-longTrem" element={<AddItemLongTrem />} />
+            <Route
+              path="edit-longTrem/:longTremId"
+              element={<EditLongTrem />}
+            />
             <Route path="/add-daily" element={<AddItemDaily />} />
             <Route path="/edit-daily/:id" element={<EditDaily />} />
             <Route path="/profile" element={<Profile />} />

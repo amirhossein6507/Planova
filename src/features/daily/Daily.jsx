@@ -18,7 +18,7 @@ function Daily() {
       <ListContainer linkBtnAddTask="/add-daily">
         {dailyItem.length == 0 ? (
           <div className="flex justify-center items-center  p-10">
-            هنور هدفی برای امروز نذاشتی🙄
+            هنوز هدفی برای امروز نذاشتی🙄
           </div>
         ) : (
           <>

@@ -1,6 +1,6 @@
 import { BiSolidPencil } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa6";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function Tools({ handleDelete, id }) {
   const navigate = useNavigate();
@@ -20,9 +20,9 @@ function Tools({ handleDelete, id }) {
       <button className="btn btn-sm btn-error" onClick={handleDeleteItem}>
         <FaTrash color="eee" size={16} />
       </button>
-      <button className="btn btn-sm btn-warning">
+      <Link to={`/edit-longTrem/${id}`} className="btn btn-sm btn-warning">
         <BiSolidPencil color="#eee" size={18} />
-      </button>
+      </Link>
     </div>
   );
 }

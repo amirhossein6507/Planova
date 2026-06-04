@@ -53,7 +53,10 @@ function Btn({ children, onClick, type, className = "", to }) {
 
   return (
     <div className={`${styleContainer} ${className}`}>
-      <button onClick={onClick} className={`${styleBtn} cursor-pointer`}>
+      <button
+        onClick={onClick}
+        className={`${styleBtn} cursor-pointer flex justify-center items-center`}
+      >
         {children}
       </button>
     </div>

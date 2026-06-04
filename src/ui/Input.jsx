@@ -70,6 +70,7 @@ function Input({
             className={styleInput}
             style={{ resize: "none" }}
             onChange={handleChange}
+            value={value}
           ></textarea>
         )}
       </div>

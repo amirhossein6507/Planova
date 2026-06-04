@@ -3,6 +3,7 @@ import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useEffect, useState } from "react";
 import Tools from "./Tools";
+import Timer from "./Timer";
 
 function LongTremShow() {
   const { id } = useParams();
@@ -17,15 +18,16 @@ function LongTremShow() {
   }, [getDataLongGoal, id]);
 
   const showStep = goal.steps?.length;
-  console.log(showStep);
+
+  // 88888888888888888888888
+
+  // 88888888888888888888888
 
   return (
     <div className="relative p-4">
       <ButtonBack link={"/home/long-trem"} />
       <div className="flex flex-col justify-center items-center gap-1">
-        <span className="text-3xl font-light text-[#e0f]">
-          {mins}:{days}
-        </span>
+        {goal.endDate && <Timer endDate={goal.endDate} />}
         <div className="flex gap-2">
           <span className="text-xl">{goal?.createDate}</span>
           {goal.endDate && (
@@ -60,8 +62,8 @@ function LongTremShow() {
           <div className="border-r border-[#e0f] pr-2">
             <h4 className="text-neutral-500">قدم ها</h4>
             <ul className="text-neutral-400 text-[13px] text-justify leading-6 list-disc pr-4">
-              {goal?.steps?.map((item) => (
-                <li>{item}</li>
+              {goal?.steps?.map((item, index) => (
+                <li key={index}>{item}</li>
               ))}
             </ul>
           </div>
