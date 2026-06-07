@@ -83,7 +83,8 @@ function EditLongTrem() {
       : setEndDate(e.target.value);
   };
 
-  const handleAddStep = () => {
+  const handleAddStep = (e) => {
+    e.preventDefault();
     setSteps((cur) => [...cur, itemStep]);
     setItemStep("");
   };

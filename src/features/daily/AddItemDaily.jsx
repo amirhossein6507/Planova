@@ -36,18 +36,8 @@ function AddItemDaily() {
     navigate("/home");
   };
 
-  // useEffect(() => {
-  //   const fn = (e) => {
-  //     if (e.keyCode == 13) setDescription((cur) => cur + "\n");
-  //   };
-
-  //   document.addEventListener("keydown", fn);
-
-  //   return () => document.removeEventListener("keydown", fn);
-  // }, [description]);
-
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex h-screen items-center justify-center">
       <ButtonBack />
       <Form className="mx-5" onSubmit={handleSubmit}>
         <Input lable="عنوان" onGetInput={setTitle} value={title} />
@@ -66,7 +56,7 @@ function AddItemDaily() {
           <Option value="study">درسی📚</Option>
         </Selecte>
 
-        <Btn type="black">اضفافه کردن</Btn>
+        <Btn type="black">اضافه کردن</Btn>
       </Form>
     </div>
   );

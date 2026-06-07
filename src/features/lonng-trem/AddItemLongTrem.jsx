@@ -64,27 +64,23 @@ function AddItemLongTrem() {
       : setEndDate(e.target.value);
   };
 
-  const handleAddStep = () => {
+  const handleAddStep = (e) => {
+    e.preventDefault();
     setSteps((cur) => [...cur, itemStep]);
     setItemStep("");
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="flex h-screen items-center justify-center">
       <ButtonBack link="/home/long-trem" />
       <Form action="" onSubmit={handleSubmit}>
-        <Input
-          lable="عنوان"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Input lable="عنوان" type="text" value={title} onGetInput={setTitle} />
 
         <Input
           lable="توضیحات"
           type="textarea"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onGetInput={setDescription}
         />
 
         <div className="flex flex-wrap items-center justify-between">
@@ -93,13 +89,13 @@ function AddItemLongTrem() {
             className="w-9/12"
             type="text"
             value={itemStep}
-            onChange={(e) => setItemStep(e.target.value)}
+            onGetInput={setItemStep}
           />
           <Btn type="violet" className="w-2/12" onClick={handleAddStep}>
             <HiPlus />
           </Btn>
           {steps.length !== 0 && (
-            <ul className="bg-violet-100 w-full text-violet-600 py-2 px-4 rounded-2xl mt-3 mb-1">
+            <ul className="mt-3 mb-1 w-full rounded-2xl bg-violet-100 px-4 py-2 text-violet-600">
               {steps.map((item, index) => {
                 return (
                   <li key={index} className="flex items-center gap-2">
@@ -122,12 +118,12 @@ function AddItemLongTrem() {
           lable="چرا این هدف مهمه"
           type="text"
           value={whyTarget}
-          onChange={(e) => setWhyTarget(e.target.value)}
+          onGetInput={setWhyTarget}
         />
 
-        <div className="border border-white rounded-2xl p-2">
-          <div className="flex gap-3 mb-3 bg-white rounded-full">
-            <div className="bg-white rounded-full px-3 py-1 text-black flex justify-center items-center gap-1 w-4/12 text-[12px]">
+        <div className="rounded-2xl border border-white p-2">
+          <div className="mb-3 flex gap-3 rounded-full bg-white">
+            <div className="flex w-4/12 items-center justify-center gap-1 rounded-full bg-white px-3 py-1 text-[12px] text-black">
               <input
                 type="radio"
                 id="no-date"
@@ -139,7 +135,7 @@ function AddItemLongTrem() {
               />
               <label htmlFor="no-date">بدون تاریخ</label>
             </div>
-            <div className="bg-white rounded-full px-3 py-1 text-black flex justify-center items-center gap-1 w-4/12 text-[12px]">
+            <div className="flex w-4/12 items-center justify-center gap-1 rounded-full bg-white px-3 py-1 text-[12px] text-black">
               <input
                 type="radio"
                 id="yes-date"
@@ -157,7 +153,7 @@ function AddItemLongTrem() {
               <label htmlFor="">تاریخ شروع</label>
               <input
                 type="date"
-                className="input input-sm rounded-full grow text-neutral-500 mt-1"
+                className="input input-sm mt-1 grow rounded-full text-neutral-500"
                 value={createDate}
                 onChange={(e) => setCreateDate(e.target.value)}
               />
@@ -168,7 +164,7 @@ function AddItemLongTrem() {
               <label htmlFor="">تاریخ پایان</label>
               <input
                 type="date"
-                className="input input-sm rounded-full grow text-neutral-500 mt-1"
+                className="input input-sm mt-1 grow rounded-full text-neutral-500"
                 disabled={selectDateOption == "no-date" && true}
                 value={endDate}
                 min={createDate}
@@ -178,7 +174,7 @@ function AddItemLongTrem() {
             </div>
           </div>
         </div>
-        <div className="w-full flex">
+        <div className="flex w-full">
           <Selecte
             value={category}
             onChange={(e) => setCategory(e.target.value)}

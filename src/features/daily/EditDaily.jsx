@@ -46,7 +46,7 @@ function EditDaily() {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center ">
       <ButtonBack />
 
       <Form action="" onSubmit={handleSubmit}>

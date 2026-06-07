@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import ButtonBack from "../../ui/ButtonBack";
 import { useGoalsContext } from "../../contexts/GoalsContext";
 import { useEffect, useState } from "react";
@@ -10,23 +10,21 @@ function LongTremShow() {
   const { getDataLongGoal, dispatch } = useGoalsContext();
   const [goal, setGoal] = useState({});
 
-  const days = goal.timer / 60;
-  const mins = goal.timer / 60 / 24;
-
   useEffect(() => {
     setGoal(getDataLongGoal(id));
   }, [getDataLongGoal, id]);
 
   const showStep = goal.steps?.length;
 
-  // 88888888888888888888888
-
-  // 88888888888888888888888
-
   return (
     <div className="relative p-4">
-      <ButtonBack link={"/home/long-trem"} />
-      <div className="flex flex-col justify-center items-center gap-1">
+      <Link
+        to="/home/long-trem"
+        className="flex flex-row-reverse text-zinc-500"
+      >
+        back &larr;
+      </Link>
+      <div className="flex flex-col items-center justify-center gap-1">
         {goal.endDate && <Timer endDate={goal.endDate} />}
         <div className="flex gap-2">
           <span className="text-xl">{goal?.createDate}</span>
@@ -37,11 +35,11 @@ function LongTremShow() {
             </>
           )}
         </div>
-        <h2 className="px-5 py text-xl border-2  border-purple-400 rounded-full">
+        <h2 className="py rounded-full border-2 border-purple-400 px-5 text-xl">
           {goal?.title}
         </h2>
         <h4
-          className={`px-5 py-0.5 rounded-full bg-purple-400 text-white ${goal?.category == "none" ? "hidden opacity-0" : ""}`}
+          className={`rounded-full bg-purple-400 px-5 py-0.5 text-white ${goal?.category == "none" ? "hidden opacity-0" : ""}`}
         >
           {goal?.category == "work" && "کاری"}
           {goal?.category == "study" && "درسی"}
@@ -53,7 +51,7 @@ function LongTremShow() {
         {goal.description && (
           <div className="border-r border-[#e0f] pr-2">
             <h4 className="text-neutral-500">توضیحات</h4>
-            <p className="text-neutral-400 text-[13px] text-justify leading-6">
+            <p className="text-justify text-[13px] leading-6 text-neutral-400">
               {goal?.description}
             </p>
           </div>
@@ -61,7 +59,7 @@ function LongTremShow() {
         {showStep !== 0 && (
           <div className="border-r border-[#e0f] pr-2">
             <h4 className="text-neutral-500">قدم ها</h4>
-            <ul className="text-neutral-400 text-[13px] text-justify leading-6 list-disc pr-4">
+            <ul className="list-disc pr-4 text-justify text-[13px] leading-6 text-neutral-400">
               {goal?.steps?.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
@@ -71,7 +69,7 @@ function LongTremShow() {
         {goal.whyTarget && (
           <div className="border-r border-[#e0f] pr-2">
             <h4 className="text-neutral-500">چرا این هدف برات مهمه؟</h4>
-            <p className="text-neutral-400 text-[13px] text-justify leading-6">
+            <p className="text-justify text-[13px] leading-6 text-neutral-400">
               {goal?.whyTarget}
             </p>
           </div>

@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css");
+/* @import url("https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css"); */
+
 @plugin "daisyui" {
   themes: light --default;
   base: false;
@@ -8,6 +9,10 @@
 @font-face {
   font-family: logo;
   src: url("./assets/fonts/SEGOEPRB.TTF");
+}
+@font-face {
+  font-family: "Shabnam";
+  src: url("./assets/fonts/Shabnam.ttf");
 }
 .text-logo {
   font-family: logo;
