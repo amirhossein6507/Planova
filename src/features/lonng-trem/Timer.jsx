@@ -15,9 +15,11 @@ const formatDate = (date) => {
 };
 
 function Timer({ endDate }) {
-  const nowDay = formatDate(new Date());
-  const end = endDate?.split("-").join("");
-  const daysLeft = Number(end) - Number(nowDay);
+  const targetDate = new Date(endDate);
+  const today = new Date();
+
+  const diffTime = targetDate - today;
+  const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (
     <span className="text-2xl font-light text-[#e0f]">
